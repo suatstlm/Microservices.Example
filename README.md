@@ -17,4 +17,4 @@ This project follows an event-driven architecture for order processing. The syst
 ## Technologies Used
 - **.NET Core**
 - **RabbitMQ** (for event-driven communication)
-- **MongoDB / SQL Server** (for order and stock management)
+- **MongoDB / Postgresql** (for order and stock management)
