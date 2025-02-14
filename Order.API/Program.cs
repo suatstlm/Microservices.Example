@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<OrderAPIDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServer"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgrsqlServer"));
 });
 
 builder.Services.AddMassTransit(configurator =>

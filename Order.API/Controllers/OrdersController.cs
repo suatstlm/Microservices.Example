@@ -28,7 +28,7 @@ namespace Order.API.Controllers
             {
                 OrderId = Guid.NewGuid(),
                 BuyerId = createOrder.BuyerId,
-                CreatedDate = DateTime.Now,
+                CreatedDate = DateTime.UtcNow,
                 OrderStatu = Models.Enums.OrderStatus.Suspend
             };
 
