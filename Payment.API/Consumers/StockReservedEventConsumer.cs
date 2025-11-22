@@ -14,31 +14,29 @@ namespace Payment.API.Consumers
 
         public Task Consume(ConsumeContext<StockReservedEvent> context)
         {
-            //Ödeme işlemleri....
+            //Payment transactions....
 
             if (true)
             {
-                //Ödemenn başarıyla tamamlandığını...
                 PaymentCompletedEvent paymentCompletedEvent = new()
                 {
                     OrderId = context.Message.OrderId
                 };
                 _publishEndpoint.Publish(paymentCompletedEvent);
 
-                Console.WriteLine("Ödeme başarılı...");
+                Console.WriteLine("Payment successful...");
             }
             else
             {
-                //Ödemede sıkıntı olduğunu...
                 PaymentFailedEvent paymentFailedEvent = new()
                 {
                     OrderId = context.Message.OrderId,
-                    Message = "Bakiye yetersiz..."
+                    Message = "Insufficient balance..."
                 };
 
                 _publishEndpoint.Publish(paymentFailedEvent);
 
-                Console.WriteLine("Ödeme başarısız...");
+                Console.WriteLine("Payment failed...");
             }
 
             return Task.CompletedTask;

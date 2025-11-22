@@ -3,7 +3,6 @@ using MongoDB.Driver;
 using Shared;
 using Shared.Events;
 using Shared.Messages;
-using Stock.API.Models.Entities;
 using Stock.API.Services;
 
 namespace Stock.API.Consumers
@@ -48,12 +47,9 @@ namespace Stock.API.Consumers
 
                 ISendEndpoint sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri($"queue:{RabbitMQSettings.Payment_StockReservedEventQueue}"));
                 await sendEndpoint.Send(stockReservedEvent);
-
-                await Console.Out.WriteLineAsync("Stok işlemleri başarılı...");
             }
             else
             {
-                //Siparişin tutarsız/geçersiz olduğuna dair işlemler...
                 StockNotReservedEvent stockNotReservedEvent = new()
                 {
                     BuyerId = context.Message.BuyerId,
@@ -62,10 +58,7 @@ namespace Stock.API.Consumers
                 };
 
                 await _publishEndpoint.Publish(stockNotReservedEvent);
-                await Console.Out.WriteLineAsync("Stok işlemleri başarısız...");
             }
-
-            //return Task.CompletedTask;
         }
     }
 }
